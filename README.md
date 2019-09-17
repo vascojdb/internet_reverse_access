@@ -21,7 +21,12 @@ $ sudo apt install autossh git
 ```
 
 ## Installation
-Installation is simple:  
+Installation is only 4 steps:  
+ - Download
+ - Copy and modify
+ - Enable
+ - Profit!  
+
 First clone/download the repository:
 ```
 $ git clone https://github.com/vascojdb/internet_reverse_access.git
