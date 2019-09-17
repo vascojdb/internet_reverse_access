@@ -6,7 +6,7 @@ A simple way to access your Raspberry Pi or Linux through the internet without m
  - You do not need a public IP *(some providers make you pay for that)*
  - You do not need to setup any port forwarding on the router
  - Uses [serveo.net](http://serveo.net/) reverse access so its **free** and **no registration is required**
- - Will let you access your webserver *(port 80)* and SSH connection *(port 22)*. You can configure others if desired.
+ - Will let you access your webserver *(port 80)* and SSH connection *(port 22)* without any changes! You can configure others services and ports if you want.
 
 ## How does it work?
 You can read [here](http://serveo.net/#intro) all about how serveo.net works.  
