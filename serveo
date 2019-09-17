@@ -1,0 +1,37 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          autossh
+# Required-Start:    $local_fs $remote_fs $network $syslog
+# Required-Stop:     $local_fs $remote_fs $network $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: starts the autossh connection to serveo.net
+# Description:       starts the autossh connection to serveo.net
+### END INIT INFO
+
+SUBDOMAIN_NAME="somethinghere"
+WEB_LOCAL_PORT=80
+WEB_INTERNET_PORT=80
+SSH_LOCAL_PORT=22
+SSH_INTERNET_PORT=22
+
+case "$1" in
+    start)
+    	echo "Starting AutoSSh tunnel connection to serveo.net: http://$SUBDOMAIN_NAME.serveo.net (Ports: WEB: $WEB_INTERNET_PORT, SSH: $SSH_INTERNET_PORT)"
+    	sudo /usr/bin/autossh  -M 0 -f -o "StrictHostKeyChecking=false" -o "ServerAliveInterval 30" -o "ServerAliveCountMax 10" -R $SUBDOMAIN_NAME:$WEB_INTERNET_PORT:localhost:$WEB_LOCAL_PORT -R $SUBDOMAIN_NAME:$SSH_INTERNET_PORT:localhost:$SSH_LOCAL_PORT serveo.net
+    	;;
+    stop)
+	echo "Stopping AutoSSh tunnel connection to serveo.net"
+    	sudo killall autossh
+    	;;
+    restart)
+	echo "Restarting AutoSSh tunnel connection to serveo.net: http://$SUBDOMAIN_NAME.serveo.net (Ports: WEB: $WEB_INTERNET_PORT, SSH: $SSH_INTERNET_PORT)"
+    	sudo killall autossh
+    	sudo /usr/bin/autossh -M 0 -f -o "StrictHostKeyChecking=false" -o "ServerAliveInterval 30" -o "ServerAliveCountMax 10" -R $SUBDOMAIN_NAME:$WEB_INTERNET_PORT:localhost:$WEB_LOCAL_PORT -R $SUBDOMAIN_NAME:$SSH_INTERNET_PORT:localhost:$SSH_LOCAL_PORT serveo.net
+   	;;
+    *)
+    	echo "Usage: $0 (start|stop|restart)"
+	exit 1;
+    ;;
+esac
+exit 0
